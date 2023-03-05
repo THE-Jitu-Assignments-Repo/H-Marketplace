@@ -6,7 +6,8 @@ function Navbar() {
             <nav className="navbarBav">
                 <ul className="navbarListItems">
                     <li className="navbarListItem">
-                        
+                        <ExploreIcon fill="#2c2c2c" width="36px" height="36px" />
+                        <p>Explore</p>
                     </li>
                 </ul>
             </nav>
