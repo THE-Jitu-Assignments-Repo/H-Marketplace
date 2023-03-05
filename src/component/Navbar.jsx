@@ -9,6 +9,15 @@ function Navbar() {
                         <ExploreIcon fill="#2c2c2c" width="36px" height="36px" />
                         <p>Explore</p>
                     </li>
+                     <li className="navbarListItem">
+                        <ExploreIcon fill="#2c2c2c" width="36px" height="36px" />
+                        <p>offer</p>
+                    </li>
+                     <li className="navbarListItem">
+                        <PersonOutlineIcon fill="#2c2c2c" width="36px" height="36px" />
+                        <p>profile</p>
+                    </li>
+
                 </ul>
             </nav>
             
