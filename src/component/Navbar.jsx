@@ -20,16 +20,16 @@ function Navbar() {
             <nav className="navbarNav">
                 <ul className="navbarListItems">
                     <li className="navbarListItem">
-                        <ExploreIcon fill={activeRoute('/')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/')} />
-                        <p>Explore</p>
+                        <ExploreIcon fill={activeRoute('/') ? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/')} />
+                        <p className={activeRoute('/') ? 'navbarListItemNameActive' : 'navbarListItemName'}>Explore</p>
                     </li>
                      <li className="navbarListItem">
-                        <OfferIcon fill={activeRoute('/offers')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/offers')}/>
-                        <p>offer</p>
+                        <OfferIcon fill={activeRoute('/offers') ? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/offers')}/>
+                        <p className={activeRoute('/offers') ? 'navbarListItemNameActive' : 'navbarListItemName'}>offer</p>
                     </li>
                      <li className="navbarListItem">
                         <PersonOutlineIcon fill={activeRoute('/profile')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/profile')}/>
-                        <p>profile</p>
+                        <p className={activeRoute('/profile') ? 'navbarListItemNameActive' : 'navbarListItemName'}>profile</p>
                     </li>
 
                 </ul>
