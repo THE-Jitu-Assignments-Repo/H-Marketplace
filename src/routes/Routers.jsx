@@ -10,8 +10,8 @@ function Routers() {
   return (
     <>
       <Routes>
-        <Route index element={<Index />}/>
-        <Route path="/explore" element={<Explore />} />
+        {/* <Route index element={<Index />}/> */}
+        <Route index path="/" element={<Explore />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/profile" element={<SignIn />} />
         <Route path="/sign-in" element={<SignIn />} />
