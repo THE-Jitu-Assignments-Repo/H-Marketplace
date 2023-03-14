@@ -17,7 +17,7 @@ function SignIn() {
                     <p className="pageHeader">Welcome Back!</p>
                 </header>
                 <form>
-                    <input type="text" />
+                    <input type="email" className='eailInput' placeholder='Email' id='email' value={email} onChange={onChage} />
                 </form>
             </div>
         </>
