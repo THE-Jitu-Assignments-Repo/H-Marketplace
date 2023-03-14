@@ -5,6 +5,10 @@ import { ReactComponent as ArrowRightIcon } from '../assets/svg/visibilityIcon.s
 function SignIn() {
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
     return (
         <div>
             <h1>Login</h1>
