@@ -11,7 +11,12 @@ function SignIn() {
     password: "",
   });
   const { email, password } = formData;
-  const onChange = () => {};
+  const onChange = (e) => {
+    setFormData(prev=>({
+        ...prev,
+        [e.target.id]: e.target.value
+    }))
+  };
   return (
     <>
       <div className="pageContainer">
@@ -43,8 +48,21 @@ function SignIn() {
               onClick={() => setShowPassword((prev) => !prev)}
             />
           </div>
-           <Link to="/forgotten-password" className="forgotPasswordLink">Forgot Password</Link>
+          <Link to="/forgot-password" className="forgotPasswordLink">
+            Forgot Password
+          </Link>
+          <div className="signInBar">
+            <p className="signInText">Sign In</p>
+            <button className="signInButton">
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
+            </button>
+          </div>
         </form>
+
+        {/* Google Oauth compponent */}
+        <Link to="/sign-up" className="registerLink">
+          Sign UP Instead
+        </Link>
       </div>
     </>
   );
