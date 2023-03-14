@@ -11,9 +11,16 @@ function SignIn() {
         password: '',
     })
     return (
-        <div>
-            <h1>Login</h1>
-        </div>
+        <>
+            <div className="pageContainer">
+                <header>
+                    <p className="pageHeader">Welcome Back!</p>
+                </header>
+                <form>
+                    <input type="text" />
+                </form>
+            </div>
+        </>
     )
 }
 
