@@ -18,7 +18,6 @@ function SignUp() {
     email: "",
     password: "",
   });
-  const [err, serErr] = useState("");
   const { name, email, password } = formData;
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -46,9 +45,7 @@ function SignUp() {
       await setDoc(doc(db, "users", user.uid), formDataCopy);
       navigate("/");
     } catch (error) {
-      
-      serErr(error);
-      console.log(error);
+      toast.error("Invalid Credentials", { hideProgressBar: true });
     }
   };
   return (
