@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
+import {db} from '../config/firebase.config'
 
 function SignUp() {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ function SignUp() {
     email: "",
     password: "",
   });
+  const [err, serErr] = useState('')
   const { name, email, password } = formData;
   const onChange = (e) => {
     setFormData(prev=>({
@@ -18,13 +21,32 @@ function SignUp() {
         [e.target.id]: e.target.value
     }))
   };
+  const onSubmit= async(e)=>{
+    e.preventDefault()
+    try {
+      const auth = getAuth()
+
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+      updateProfile(auth.currentUser, {
+        displayName: name
+      })
+
+      navigate('/')
+    } catch (error) {
+      serErr(error)
+      console.log(error);
+    }
+
+  }
   return (
     <>
       <div className="pageContainer">
         <header>
           <p className="pageHeader">Welcome Back!</p>
         </header>
-        <form>
+        {/* <div>{err? err : null}</div> */}
+        <form onSubmit={onSubmit}>
             <input
             type="text"
             className="nameInput"
