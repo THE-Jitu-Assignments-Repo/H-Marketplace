@@ -1,44 +1,55 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
-import {db} from '../config/firebase.config'
+import { db } from "../config/firebase.config";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
 function SignUp() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    name: "",
     email: "",
     password: "",
   });
-  const [err, serErr] = useState('')
+  const [err, serErr] = useState("");
   const { name, email, password } = formData;
   const onChange = (e) => {
-    setFormData(prev=>({
-        ...prev,
-        [e.target.id]: e.target.value
-    }))
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
   };
-  const onSubmit= async(e)=>{
-    e.preventDefault()
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const auth = getAuth()
+      const auth = getAuth();
 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      const user = userCredential.user
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
       updateProfile(auth.currentUser, {
-        displayName: name
-      })
-
-      navigate('/')
+        displayName: name,
+      });
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      navigate("/");
     } catch (error) {
-      serErr(error)
+      serErr(error);
       console.log(error);
     }
-
-  }
+  };
   return (
     <>
       <div className="pageContainer">
@@ -47,7 +58,7 @@ function SignUp() {
         </header>
         {/* <div>{err? err : null}</div> */}
         <form onSubmit={onSubmit}>
-            <input
+          <input
             type="text"
             className="nameInput"
             placeholder="Name"
