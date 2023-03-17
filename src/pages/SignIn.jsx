@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import { toast } from "react-toastify";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function SignIn() {
         navigate('/')
       }
     } catch (error) {
+      toast.error("Invalid Credentials", {hideProgressBar: true})
       console.log(error);
     }
   }
