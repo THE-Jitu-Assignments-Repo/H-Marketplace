@@ -12,6 +12,8 @@ function Profile() {
   // useEffect(()=>{
   //     setUser(auth.currentUser)
   // },[])
+  const {name, email} = formData
+
   const onLogout = () =>{
     auth.signOut()
     navigate('/')
@@ -21,7 +23,7 @@ function Profile() {
     <div className="profile">
       <header className="profileHeader">
         <p className="pageHeader">My Profile</p>
-        <button className="logout" type="button" onClick={onLogout}>Logout</button>
+        <button className="logOut" type="button" onClick={onLogout}>Logout</button>
       </header>
     </div>
   );
