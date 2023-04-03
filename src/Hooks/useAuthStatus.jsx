@@ -17,7 +17,7 @@ function useAuthStatus() {
         })
     })
 
-    return {loggedIn, checkingStatus}
+    return [loggedIn, checkingStatus]
 }
 
 export default useAuthStatus
