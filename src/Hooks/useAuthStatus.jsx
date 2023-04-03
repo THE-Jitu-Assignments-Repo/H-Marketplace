@@ -21,7 +21,7 @@ function useAuthStatus() {
         }
 
         return ()=>{
-            isMounted.current(false)
+            isMounted.current=false
         }
     },[isMounted])
 
