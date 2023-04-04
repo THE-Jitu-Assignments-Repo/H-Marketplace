@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { collection, getDocs, limit, orderBy, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, where, query } from "firebase/firestore";
 import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
 import Spinner from "../component/Spinner";
@@ -17,7 +17,7 @@ function Category() {
     const fetchListings = async () => {
       try {
         // get reference
-        const listingsRef = collection(db, "listing");
+        const listingsRef = collection(db, "listings");
 
         //create a query
         const q = query(
@@ -37,14 +37,17 @@ function Category() {
             id: doc.id,
             data: doc.data(),
           });
+        // console.log(doc)
         });
         // console.log(listings);
         setListing(listings);
         setLoading(false);
       } catch (error) {
         toast.error("could not fetch listings");
+        console.log(error);
       }
     };
+    fetchListings()
   }, [params.categoryName]);
 
   return (
@@ -63,7 +66,7 @@ function Category() {
         <>
           <main>
             <ul className="categoryListings">
-              {listings.map((listing) => (
+              {listings?.map((listing) => (
                 <h3>{listing.data.name}</h3>
               ))}
             </ul>
