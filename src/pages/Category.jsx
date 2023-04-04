@@ -2,10 +2,18 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { collection, getDocs, limit, orderBy, where, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  where,
+  query,
+} from "firebase/firestore";
 import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
 import Spinner from "../component/Spinner";
+import ListingItem from "../component/ListingItem";
 
 function Category() {
   const [listings, setListing] = useState(null);
@@ -37,7 +45,7 @@ function Category() {
             id: doc.id,
             data: doc.data(),
           });
-        // console.log(doc)
+          // console.log(doc)
         });
         // console.log(listings);
         setListing(listings);
@@ -47,7 +55,7 @@ function Category() {
         console.log(error);
       }
     };
-    fetchListings()
+    fetchListings();
   }, [params.categoryName]);
 
   return (
@@ -67,7 +75,12 @@ function Category() {
           <main>
             <ul className="categoryListings">
               {listings?.map((listing) => (
-                <h3 key={listing.id}>{listing.data.name}</h3>
+                <ListingItem
+                  listing={listing.data}
+                  id={listing.id}
+                  key={listing.id}
+                />
+                // <h3 key={listing.id}>{listing.data.name}</h3>
               ))}
             </ul>
           </main>
