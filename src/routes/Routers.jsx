@@ -7,6 +7,7 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import PrivateRoute from "../component/PrivateRoute";
+import Category from "../pages/Category";
 
 function Routers() {
   return (
@@ -15,6 +16,7 @@ function Routers() {
         {/* <Route index element={<Index />}/> */}
         <Route index path="/" element={<Explore />} />
         <Route path="/offers" element={<Offers />} />
+        <Route path="/category/:categoryName" element={<Category />} />
         <Route path="/profile" element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
