@@ -62,9 +62,7 @@ function Offers() {
     <div className="category">
       <header>
         <p className="pageHeader">
-          {params.categoryName === "rent"
-            ? "Places for rent"
-            : "Places for sale"}
+          Offers
         </p>
       </header>
 
