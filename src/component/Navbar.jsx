@@ -25,7 +25,7 @@ function Navbar() {
                     </li>
                      <li className="navbarListItem">
                         <OfferIcon fill={activeRoute('/offers') ? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/offers')}/>
-                        <p className={activeRoute('/offers') ? 'navbarListItemNameActive' : 'navbarListItemName'}>offer</p>
+                        <p className={activeRoute('/offers') ? 'navbarListItemNameActive' : 'navbarListItemName'}>offers</p>
                     </li>
                      <li className="navbarListItem">
                         <PersonOutlineIcon fill={activeRoute('/profile')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/profile')}/>
