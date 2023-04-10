@@ -28,7 +28,7 @@ function Navbar() {
                         <p className={activeRoute('/offers') ? 'navbarListItemNameActive' : 'navbarListItemName'}>offers</p>
                     </li>
                      <li className="navbarListItem">
-                        <PersonOutlineIcon fill={activeRoute('/profile')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/profile')}/>
+                        <PersonOutlineIcon fill={activeRoute('/profile')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={(),mh=> navigate('/profile')}/>
                         <p className={activeRoute('/profile') ? 'navbarListItemNameActive' : 'navbarListItemName'}>profile</p>
                     </li>
 
