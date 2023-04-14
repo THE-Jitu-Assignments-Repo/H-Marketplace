@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CategoryListing() {
+function Listing() {
     return (
         <div>
             category list 
@@ -8,4 +8,4 @@ function CategoryListing() {
     )
 }
 
-export default CategoryListing
+export default Listing
