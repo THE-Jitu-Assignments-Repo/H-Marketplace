@@ -29,7 +29,7 @@ function Navbar() {
                     </li>
                      <li className="navbarListItem">
                         <PersonOutlineIcon fill={activeRoute('/profile')? "#2c2c2c" : '#8f8f8f'} width="36px" height="36px" onClick={()=> navigate('/profile')}/>
-                        <p className={activeRoute('/profile') ? 'navbarListItemNameActive' : 'navbarListItemName'}>profile</p>
+                        <p className={activeRoute('/profile') ? 'navbarListItemNameActive' : 'navbarListItemName'}>Profile</p>
                     </li>
 
                 </ul>
