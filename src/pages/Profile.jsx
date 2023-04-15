@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
-
+import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
+import homeIcon from "../assets/svg/homeIcon.svg";
+import {Link} from 'react-router-dom'
 
 function Profile() {
   const auth = getAuth();
@@ -30,7 +32,7 @@ function Profile() {
         // update name
 
         await updateProfile(auth.currentUser, {
-         dispalyName: name,
+          dispalyName: name,
         });
 
         //update firestore
@@ -40,7 +42,7 @@ function Profile() {
         });
       }
     } catch (error) {
-        console.log(error);
+      console.log(error);
       toast.error("failed to update user profile details");
     }
   };
@@ -93,6 +95,12 @@ function Profile() {
             />
           </form>
         </div>
+
+        <Link to="/create-Listing" classsName="createListing">
+          <img src={homeIcon} alt="home" />
+          <p>Sell or rent your home</p>
+          <img src={arrowRight} alt="arrowright" />
+        </Link>
       </main>
     </div>
   );
