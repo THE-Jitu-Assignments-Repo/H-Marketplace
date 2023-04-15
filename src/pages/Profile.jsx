@@ -6,7 +6,7 @@ import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
 import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
 import homeIcon from "../assets/svg/homeIcon.svg";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function Profile() {
   const auth = getAuth();
@@ -96,7 +96,7 @@ function Profile() {
           </form>
         </div>
 
-        <Link to="/create-listing" classsName="createListing">
+        <Link to="/create-listing" classsName="createListing" style={{display: 'flex', justifyContent: 'space-around'}}>
           <img src={homeIcon} alt="home" />
           <p>Sell or rent your home</p>
           <img src={arrowRight} alt="arrowright" />
