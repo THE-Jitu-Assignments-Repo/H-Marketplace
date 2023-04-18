@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function CreateListing() {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
-  const [loading, setLoading]= useState(false)
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -22,6 +22,21 @@ function CreateListing() {
     longitude: 0,
   });
 
+  const {
+    type,
+    name,
+    bedrooms,
+    bathrooms,
+    parking,
+    furnished,
+    address,
+    offer,
+    regularPrice,
+    discountedprice,
+    images,
+    latitude,
+    longitude,
+  } = formData;
   const auth = getAuth();
   const navigate = useNavigate();
   const isMounted = useRef(true);
@@ -42,11 +57,49 @@ function CreateListing() {
     };
   }, [isMounted]);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+  const onMutate = () => {};
 
-  if(loading){
-    return <Spinner />
+  if (loading) {
+    return <Spinner />;
   }
-  return <div>Create listing</div>;
+  return (
+    <div className="profile">
+      <header>
+        <p className="pageHeader">Create a Listing</p>
+      </header>
+
+      <main>
+        <form onSubmit={onsubmit}>
+          <label htmlFor="" className="formLabel">
+            Sell / Rent
+          </label>
+          <div className="formButtons">
+            <button
+              type="button"
+              className={type === "sale" ? "formButtonActive" : "formButton"}
+              id="type"
+              value="sale"
+              onClick={onMutate}
+            >
+              Sell
+            </button>
+            <button
+              type="button"
+              className={type === "rent" ? "formButtonActive" : "formButton"}
+              id="type"
+              value="rent"
+              onClick={onMutate}
+            >
+              Rent
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  );
 }
 
 export default CreateListing;
