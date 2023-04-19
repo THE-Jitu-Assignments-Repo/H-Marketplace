@@ -145,6 +145,34 @@ function CreateListing() {
             />
           </div>
         </div>
+          <div>
+            <label htmlFor="" className="formLabel">
+              Parking spot
+            </label>
+            <div className="formButtons">
+            <button
+              className={parking ? 'formButtonActive' : 'formButton'}
+              type="button"
+              id="parking"
+              onClick={onMutate}
+              value={true}
+              min={1}
+              max={50}
+              required
+            > Yes</button>
+            <button
+              className={!parking && parking !== null ? 'formButtonActive' : 'formButton'}
+              type="button"
+              id="parking"
+              onClick={onMutate}
+              value={false}
+              min={1}
+              max={50}
+              required
+            > No</button>
+
+            </div>
+          </div>
       </main>
     </div>
   );
