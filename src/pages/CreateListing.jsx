@@ -96,7 +96,55 @@ function CreateListing() {
               Rent
             </button>
           </div>
+          <div>
+            <label htmlFor="" className="formLabel">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="formInputName"
+              onChange={onMutate}
+              value={name}
+              maxLength={32}
+              minLength={10}
+              required
+            />
+          </div>
         </form>
+        <div className="formRooms flex">
+          <div>
+            <label htmlFor="" className="formLabel">
+              Bedrooms
+            </label>
+            <input
+              className="formInputSmall"
+              type="number"
+              id="bedrooms"
+              onChange={onMutate}
+              value={bedrooms}
+              maxLength={1}
+              minLength={50}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="" className="formLabel">
+              Bathrooms
+            </label>
+            <input
+              className="formInputSmall"
+              type="number"
+              id="bathrooms"
+              onChange={onMutate}
+              value={bathrooms}
+              maxLength={1}
+              minLength={50}
+              required
+            />
+          </div>
+        </div>
       </main>
     </div>
   );
