@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Spinner from "../component/Spinner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CreateListing() {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
@@ -57,34 +58,76 @@ function CreateListing() {
     };
   }, [isMounted]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
-  };
-  const onMutate = (e) => {
-    let boolean = null
-    if(e.target.value === 'true'){
-      boolean= true
+    setLoading(true);
+
+    if (discountedprice >= regularPrice) {
+      setLoading(false);
+      toast.error("Discounted price needs to be less than regular price");
+      return;
     }
 
-    if(e.target.value === 'false'){
-      boolean= false
+    if (images.length > 6) {
+      setLoading(false);
+      toast.error("Max 6 images");
+      return;
+    }
+
+    let geolocation = {};
+    let location;
+
+    if (geolocationEnabled) {
+      const response = await fetch(
+        `https:maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_Geo_Key}`
+      );
+
+      const data = await response.json();
+
+      geoloacation.lat = data.results[0]?.geometry.location.lat ?? 0;
+      geolocation.lng = data.results[0]?.geometry.loacation.lng ?? 0;
+
+      location =
+        data.Status === "ZERO_RESULTS"
+          ? undefined
+          : data.results[0]?.formatted_address;
+
+      if (location === undefined || location.includes("undefined")) {
+        setLoading(false);
+        toast.error("Please enter a correct address");
+        return
+      }
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+      location = address;
+      console.log(geolocation, location);
+    }
+  };
+  const onMutate = (e) => {
+    let boolean = null;
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+
+    if (e.target.value === "false") {
+      boolean = false;
     }
 
     // Files
-    if(e.target.files){
+    if (e.target.files) {
       setFormData((prev) => ({
         ...prev,
-       images: e.target.files
-      }))
+        images: e.target.files,
+      }));
     }
 
     // Text/Booleans/Numbers
-    if(!e.target.files){
+    if (!e.target.files) {
       setFormData((prev) => ({
         ...prev,
-        [e.target.id]: boolean ?? e.target.value
-      }))
+        [e.target.id]: boolean ?? e.target.value,
+      }));
     }
   };
 
@@ -352,7 +395,9 @@ function CreateListing() {
             multiple
             required
           />
-          <button className="primaryButton createListingButton">Create Listing</button>
+          <button className="primaryButton createListingButton">
+            Create Listing
+          </button>
         </form>
       </main>
     </div>
