@@ -79,7 +79,6 @@ function Category() {
                   listing={listing.data}
                   id={listing.id}
                   key={listing.id}
-                  
                 />
               ))}
             </ul>
