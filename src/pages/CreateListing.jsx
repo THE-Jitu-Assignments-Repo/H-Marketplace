@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+} from 'firebase/storage'
+import { db } from "../config/firebase.config";
+import {v4 as uuidv4} from 'uuid'
 import Spinner from "../component/Spinner";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -103,6 +111,20 @@ function CreateListing() {
       location = address;
       console.log(geolocation, location);
     }
+
+    //store images in firebase
+    const storeImage = async(image)=>{
+      return new Promise((resolve, reject)=>{
+        const storage = getStorage()
+        const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
+        const storageRef = ref(storage, 'images/' + fileName)
+        
+        const uploadTask = uploadBytesResumable(storageRef, image)
+      })
+    }
+
+
+    setLoading(false)
   };
   const onMutate = (e) => {
     let boolean = null;
@@ -131,9 +153,12 @@ function CreateListing() {
     }
   };
 
+
   if (loading) {
     return <Spinner />;
   }
+
+
   return (
     <div className="profile">
       <header>
