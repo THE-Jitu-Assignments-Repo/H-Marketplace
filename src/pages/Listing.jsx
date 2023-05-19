@@ -33,9 +33,20 @@ function Listing() {
 
 
     return (
-        <div>
-            Listing
-        </div>
+        <main>
+            {/* Sliders */}
+            <div className="shareIconDiv" onClick={()=>{
+                navigator.clipboard.writeText(window.location.href)
+                // http://localhost:5173/category/rent/qeTmIoLEwwaTrgvzl3iT
+                setShareLinkCopied(true)
+                setTimeout(()=>{
+                    setShareLinkCopied(false)
+                }, 2000)
+            }}>
+                <img src={shareIcon} alt="" />
+            </div>
+            {shareLinkCopied && <p className='linkCopied'>Link Copied!</p>}
+        </main>
     )
 }
 
