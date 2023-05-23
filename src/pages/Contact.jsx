@@ -1,20 +1,21 @@
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
 
 function Contact() {
   const [message, setMessage] = useState("");
-  const [landrord, setLandlord] = useState(null);
+  const [landlord, setLandlord] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = useParams();
 
   useEffect(() => {
     const getLandlord = async () => {
-      const docRef = doc(db, "users", params.landrordId);
+      const docRef = doc(db, "users", params.landlordId);
       const docSnap = await getDoc(docRef);
-
+      // console.log(docSnap.data()); 
       if (docSnap.exists()) {
         setLandlord(docSnap.data());
       } else {
@@ -23,7 +24,7 @@ function Contact() {
     };
 
     getLandlord();
-  }, [params.landrordId]);
+  }, [params.landlordId]);
 
   const onChange = (e) => {
     e.setMessage(e.target.value);
@@ -33,10 +34,10 @@ function Contact() {
       <header>
         <p className="pageHeader">Contact Landlord</p>
       </header>
-      {landrord !== null && (
+      {landlord !== null && (
         <main>
           <div className="contactLandlord">
-            <p className="landlordName">Contact {landrord?.name}</p>
+            <p className="landlordName">Contact {landlord?.name}</p>
           </div>
           <form className="messageForm">
             <div className="messageDiv">
@@ -51,7 +52,7 @@ function Contact() {
                 onChange={onChange}
               ></textarea>
             </div>
-            <a href={`mailto:${landrord.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
+            <a href={`mailto:${landlord.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
                 <button type="button" className="primaryButton">Send Message</button>
             </a>
           </form>

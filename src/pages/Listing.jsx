@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 import { db } from "../config/firebase.config";
 import Spinner from "../component/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
-// import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -98,12 +98,16 @@ function Listing() {
             zoom={13}
             scrollWheelZoom={false}
           >
-            <TileLayer />
-                <Marker position={[listing.geolocation.lat, listing.geolocation.lng]}>
-                    <Popup>{listing.location}</Popup>
-                </Marker>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={[listing.geolocation.lat, listing.geolocation.lng]}
+            >
+              <Popup>{listing.location}</Popup>
+            </Marker>
           </MapContainer>
-
         </div>
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
