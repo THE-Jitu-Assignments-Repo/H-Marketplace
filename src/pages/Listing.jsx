@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { db } from "../config/firebase.config";
 import Spinner from "../component/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+// import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -56,8 +57,12 @@ function Listing() {
         <p className="listingName">
           {listing.name} - $
           {listing.offer
-            ? listing.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            : listing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            ? listing.discountedPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            : listing.regularPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
         <p className="listingLocation">{listing.location}</p>
         <p className="listingType">
@@ -86,7 +91,20 @@ function Listing() {
 
         <p className="listingLocationTitle">Location</p>
         {/* map */}
+        <div className="leafletContainer">
+          <MapContainer
+            style={{ height: "100%", width: "100%" }}
+            center={[listing.geolocation.lat, listing.geolocation.lng]}
+            zoom={13}
+            scrollWheelZoom={false}
+          >
+            <TileLayer />
+                <Marker position={[listing.geolocation.lat, listing.geolocation.lng]}>
+                    <Popup>{listing.location}</Popup>
+                </Marker>
+          </MapContainer>
 
+        </div>
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
             to={`/contact/${listing.userRef}?listingName=${listing.name}`}
