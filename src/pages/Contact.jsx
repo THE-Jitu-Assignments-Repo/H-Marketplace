@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { db } from "../config/firebase.config";
 import { toast } from "react-toastify";
+import Spinner from "../component/Spinner";
 
 function Contact() {
   const [message, setMessage] = useState("");
@@ -29,6 +30,9 @@ function Contact() {
   const onChange = (e) => {
     e.setMessage(e.target.value);
   };
+  if(!landlord){
+    return <Spinner />
+  }
   return (
     <div className="pageContainer">
       <header>
