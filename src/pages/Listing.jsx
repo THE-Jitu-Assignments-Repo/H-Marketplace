@@ -6,11 +6,19 @@ import { db } from "../config/firebase.config";
 import Spinner from "../component/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import SwiperCore, { Navigation, Pagination, Scrollbar, Ally } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
+// import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, Ally])
+import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/swiper-bundle.css";
+import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import "swiper/css/scrollbar";
+
+// SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -43,19 +51,29 @@ function Listing() {
   return (
     <main>
       {/* Sliders */}
-      <Swiper slidesperView={1} pagination={{ clickable: true }}>
+      <Swiper
+        slidesPerView={2}
+        pagination={{ clickable: true }}
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={50}
+        navigation
+        scrollbar={{ draggable: true }}
+      >
         {listing.imgUrls.map((url, index) => (
           <SwiperSlide key={index}>
             <div
               className="swiperSlideDiv"
               style={{
                 background: `url(${listing.imgUrls[index]}) center no-repeat`,
-                backgroundSize: 'cover'
+                backgroundSize: "cover",
               }}
-            ></div>
+            >
+              
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
       <div
         className="shareIconDiv"
         onClick={() => {
