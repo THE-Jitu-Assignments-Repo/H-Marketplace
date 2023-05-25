@@ -67,8 +67,7 @@ function Listing() {
                 background: `url(${listing.imgUrls[index]}) center no-repeat`,
                 backgroundSize: "cover",
               }}
-            >              
-            </div>
+            ></div>
           </SwiperSlide>
         ))}
       </Swiper>
