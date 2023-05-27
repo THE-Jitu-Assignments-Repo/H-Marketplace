@@ -76,7 +76,6 @@ function Listing() {
         className="shareIconDiv"
         onClick={() => {
           navigator.clipboard.writeText(window.location.href);
-          // http://localhost:5173/category/rent/qeTmIoLEwwaTrgvzl3iT
           setShareLinkCopied(true);
           setTimeout(() => {
             setShareLinkCopied(false);
