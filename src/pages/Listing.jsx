@@ -110,38 +110,38 @@ function Listing() {
 
       <div className="listingDetails">
         <p className="listingName">
-          {listing.name} - $
-          {listing.offer
-            ? listing.discountedPrice
+          {name} - $
+          {offer
+            ? discountedPrice
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            : listing.regularPrice
+            : regularPrice
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
         <p className="listingLocation">{listing.location}</p>
         <p className="listingType">
-          For {listing.type === "rent" ? "Rent" : "Sale"}
+          For {type === "rent" ? "Rent" : "Sale"}
         </p>
-        {listing.offer && (
+        {offer && (
           <p className="discountedPrice">
-            ${listing.regularPrice - listing.discountedPrice} discount
+            ${regularPrice - discountedPrice} discount
           </p>
         )}
 
         <ul className="listingDetailsList">
           <li>
-            {listing.bedrooms > 1
-              ? `${listing.bedrooms} Bedrooms`
+            {bedrooms > 1
+              ? `${bedrooms} Bedrooms`
               : "1 Bedroom"}
           </li>
           <li>
-            {listing.bathrooms > 1
-              ? `${listing.bathrooms} Bathrooms`
+            {bathrooms > 1
+              ? `${bathrooms} Bathrooms`
               : "1 Bathroom"}
           </li>
-          <li>{listing.parking && "Parking Spot"}</li>
-          <li>{listing.furnished && "Furnished"}</li>
+          <li>{parking && "Parking Spot"}</li>
+          <li>{furnished && "Furnished"}</li>
         </ul>
 
         <p className="listingLocationTitle">Location</p>
@@ -149,7 +149,7 @@ function Listing() {
         <div className="leafletContainer">
           <MapContainer
             style={{ height: "100%", width: "100%" }}
-            center={[listing.geolocation.lat, listing.geolocation.lng]}
+            center={[geolocation.lat, geolocation.lng]}
             zoom={13}
             scrollWheelZoom={false}
           >
@@ -158,15 +158,15 @@ function Listing() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Marker
-              position={[listing.geolocation.lat, listing.geolocation.lng]}
+              position={[geolocation.lat,geolocation.lng]}
             >
-              <Popup>{listing.location}</Popup>
+              <Popup>{location}</Popup>
             </Marker>
           </MapContainer>
         </div>
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
+            to={`/contact/${userRef}?listingName=${name}`}
             className="primaryButton"
           >
             Contact Landlord
