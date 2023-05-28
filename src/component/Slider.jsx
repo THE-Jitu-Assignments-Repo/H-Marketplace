@@ -25,7 +25,7 @@ function Slider() {
       querySnap.forEach((doc) => {
         return listingps.push({
           id: doc.id,
-          data: doc.data(),
+          ...doc.data(),
         });
       });
       console.log(listingps);
@@ -42,28 +42,37 @@ function Slider() {
     listings && (
       <>
         <p className="exploreHeading">Recommended</p>
-        <Swiper slidesPerView={1} pagination={{ clickable: true }}>
-          {listings.map((data, id) => {
-            console.log("my data",data.data.imgUrls);
+        <Swiper
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          className="swiper-container"
+        >
+          {listings.map((data, id) => (
             <SwiperSlide
               key={id}
-              onClick={() => navigate(`/category/${data.type}/${id}`)}
+              onClick={() => navigate(`/category/${data.type}/${data.id}`)}
             >
               <div
                 className="swiperSlideDiv"
                 style={{
-                  background: `url(${data.data.imgUrls[0]})center no-repeat`,
+                  background: `url(${data.imgUrls[0]}) center no-repeat`,
                   backgroundSize: "cover",
                 }}
               >
-                <p className="swiperSlideText">{data.data.name}</p>
+                <p className="swiperSlideText">{data.name}</p>
                 <p className="swiperSlidePrice">
-                  ${data.discountedPrice ?? data.regularPrice}
+                  $
+                  {data.discountedPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") ??
+                    data.regularPrice
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   {data.type === "rent" && "/ month"}
                 </p>
               </div>
-            </SwiperSlide>;
-          })}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </>
     )

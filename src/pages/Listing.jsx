@@ -6,19 +6,11 @@ import { db } from "../config/firebase.config";
 import Spinner from "../component/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-// import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-
+import "swiper/swiper-bundle.min.css";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/swiper-bundle.css";
-import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-// import "swiper/css/scrollbar";
 
-// SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
+SwiperCore.use([Navigation, Pagination]);
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -31,12 +23,16 @@ function Listing() {
 
   useEffect(() => {
     const fetchListing = async () => {
-      const docRef = doc(db, "listings", params.listingId);
-      const docSnap = await getDoc(docRef);
+      try {
+        const docRef = doc(db, "listings", params.listingId);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        // console.log(docSnap.data());
-        setListing(docSnap.data());
+        if (docSnap.exists()) {
+          setListing(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching listing:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -44,27 +40,53 @@ function Listing() {
     fetchListing();
   }, [navigate, params.listingId]);
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShareLinkCopied(true);
+    setTimeout(() => {
+      setShareLinkCopied(false);
+    }, 2000);
+  };
+
   if (loading) {
     return <Spinner />;
   }
 
+  if (!listing) {
+    return <div>No listing found.</div>;
+  }
+
+  const {
+    imgUrls,
+    name,
+    offer,
+    discountedPrice,
+    regularPrice,
+    location,
+    type,
+    bedrooms,
+    bathrooms,
+    parking,
+    furnished,
+    geolocation,
+    userRef,
+  } = listing;
+
   return (
     <main>
-      {/* Sliders */}
       <Swiper
-        slidesPerView={2}
-        pagination={{ clickable: true }}
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={1}
         spaceBetween={50}
         navigation
-        scrollbar={{ draggable: true }}
+        pagination={{ clickable: true }}
+        className="swiper-container"
       >
-        {listing.imgUrls.map((url, index) => (
+        {imgUrls.map((url, index) => (
           <SwiperSlide key={index}>
             <div
               className="swiperSlideDiv"
               style={{
-                background: `url(${listing.imgUrls[index]}) center no-repeat`,
+                background: `url(${url}) center no-repeat`,
                 backgroundSize: "cover",
               }}
             ></div>
