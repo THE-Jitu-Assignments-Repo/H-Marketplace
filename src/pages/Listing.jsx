@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 SwiperCore.use([Navigation, Pagination]);
 
 function Listing() {
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState('');
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
