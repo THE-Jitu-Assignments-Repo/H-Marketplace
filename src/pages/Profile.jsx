@@ -5,7 +5,7 @@ import {
   updateDoc,
   doc,
   collection,
-  getDocss,
+  getDocs,
   query,
   where,
   orderBy,
@@ -38,7 +38,7 @@ function Profile() {
         where("userRef", "==", auth.currentUser.uid),
         orderBy("timestamp", "desc")
       );
-      const querySnap = await getDocss(q);
+      const querySnap = await getDocs(q);
 
       let listing = [];
       querySnap.forEach((doc) => {
@@ -88,15 +88,17 @@ function Profile() {
     }));
   };
 
-  const onDelete = async(listingId)=>{
-    if(window.confirm('Are you sure you want to delete?')){
-      await deleteDoc(doc(db,'listings', listingId))
-      const updatedListing = listings.filter(listing=> listing.id !== listingId)
+  const onDelete = async (listingId) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "listings", listingId));
+      const updatedListing = listings.filter(
+        (listing) => listing.id !== listingId
+      );
 
-      setListings(updatedListing)
-      toast.success('Successfully delted listing')
+      setListings(updatedListing);
+      toast.success("Successfully delted listing");
     }
-  }
+  };
   return (
     <div className="profile">
       <header className="profileHeader">
@@ -146,17 +148,17 @@ function Profile() {
         </Link>
         {!loading && listings?.length > 0 && (
           <>
-          <p className="listingText">Your Lisitings</p>
-          <ul className="listingsList">
-            {listings.map((listing)=>{
-              <ListingItem 
-              key={listing.id}
-              listing={listing.data}
-              id={listing.id}
-              onDelete={()=> onDelete(listing.id)}
-              />
-            })}
-          </ul>
+            <p className="listingText">Your Lisitings</p>
+            <ul className="listingsList">
+              {listings.map((listing) => {
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.data}
+                  id={listing.id}
+                  onDelete={() => onDelete(listing.id)}
+                />;
+              })}
+            </ul>
           </>
         )}
       </main>
