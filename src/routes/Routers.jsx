@@ -11,6 +11,7 @@ import Category from "../pages/Category";
 import CreateListing from "../pages/CreateListing";
 import Listing from "../pages/Listing";
 import Contact from "../pages/Contact";
+import EditListing from "../pages/EditListing";
 
 function Routers() {
   return (
@@ -29,6 +30,7 @@ function Routers() {
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/category/:categoryName/:listingId" element={<Listing />}/>
         <Route path="/contact/:landlordId" element={<Contact />}/>
+        <Route path="/edit-listing/:listingId" element={<EditListing />}/>
         <Route path="*" element={<Explore />} />
       </Routes>
     </>
