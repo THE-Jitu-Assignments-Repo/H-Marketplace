@@ -28,7 +28,7 @@ function Slider() {
           ...doc.data(),
         });
       });
-      console.log(listingps);
+      // console.log(listingps);
       setListings(listingps);
       setLoading(false);
     };
