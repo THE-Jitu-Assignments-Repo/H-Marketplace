@@ -38,44 +38,49 @@ function Slider() {
   if (loading) {
     return <Spinner />;
   }
-  return (
-    listings && (
-      <>
-        <p className="exploreHeading">Recommended</p>
-        <Swiper
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          className="swiper-container"
-        >
-          {listings.map((data, id) => (
-            <SwiperSlide
-              key={id}
-              onClick={() => navigate(`/category/${data.type}/${data.id}`)}
+
+  // if (listings.length === 0) {
+  //   return;
+  // }
+
+  return listings.length > 0 ? (
+    <>
+      <p className="exploreHeading">Recommended</p>
+      <Swiper
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        className="swiper-container"
+      >
+        {listings.map((data, id) => (
+          <SwiperSlide
+            key={id}
+            onClick={() => navigate(`/category/${data.type}/${data.id}`)}
+          >
+            <div
+              className="swiperSlideDiv"
+              style={{
+                background: `url(${data.imgUrls[0]}) center no-repeat`,
+                backgroundSize: "cover",
+              }}
             >
-              <div
-                className="swiperSlideDiv"
-                style={{
-                  background: `url(${data.imgUrls[0]}) center no-repeat`,
-                  backgroundSize: "cover",
-                }}
-              >
-                <p className="swiperSlideText">{data.name}</p>
-                <p className="swiperSlidePrice">
-                  $
-                  {data.discountedPrice
+              <p className="swiperSlideText">{data.name}</p>
+              <p className="swiperSlidePrice">
+                $
+                {data.discountedPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") ??
+                  data.regularPrice
                     .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") ??
-                    data.regularPrice
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  {data.type === "rent" && "/ month"}
-                </p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </>
-    )
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {data.type === "rent" && "/ month"}
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
+  ) : (
+    <></>
   );
 }
 
