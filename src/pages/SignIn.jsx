@@ -31,7 +31,7 @@ function SignIn() {
       }
     } catch (error) {
       toast.error("Invalid Credentials", {hideProgressBar: true})
-      console.log(error);
+      // console.log(error);
     }
   }
   return (
@@ -76,7 +76,7 @@ function SignIn() {
           </div>
         </form>
 
-        {/* Google Oauth compponent */}
+      
         <OAuth />
 
         <Link to="/sign-up" className="registerLink">
